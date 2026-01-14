@@ -6,84 +6,64 @@
     <style>
         body {
             background: linear-gradient(135deg, #1e1e2f, #4a148c);
-            color: white;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
+            color: white; font-family: 'Arial', sans-serif;
+            text-align: center; min-height: 100vh; margin: 0; padding: 20px; overflow: hidden;
         }
         h1 { font-size: 35px; text-shadow: 0 0 15px #ff00ff; margin-bottom: 40px; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; max-width: 900px; margin: 0 auto; }
         .dream-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1); padding: 25px; border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2); cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px);
         }
-        .dream-card:hover {
-            transform: translateY(-10px);
-            border-color: #ff00ff;
-            background: rgba(255, 255, 255, 0.2);
-        }
+        .dream-card:hover { transform: translateY(-10px); border-color: #00ffff; background: rgba(0, 255, 255, 0.1); }
         .icon { font-size: 50px; display: block; margin-bottom: 15px; }
-        .star { position: fixed; color: #fff; pointer-events: none; animation: fly 2s linear forwards; z-index: 1000; }
-        @keyframes fly {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+        .star { position: fixed; color: #fff; pointer-events: none; z-index: 1000; animation: spread 2s ease-out forwards; }
+        @keyframes spread {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <h1>لوحة طموحات فاتي 🌌🚀</h1>
+    <h1>لوحة طموحات د. فاتي 🌌🩺</h1>
 
     <div class="grid">
-        <div class="dream-card" onclick="celebrate('ستكونين أعظم مبرمجة في العالم! 💻✨')">
+        <div class="dream-card" onclick="celebrate('أجمل دكتورة صيدلانية في المستقبل! 💊🩺')">
+            <span class="icon">💊</span>
+            <h3>كلية الصيدلة</h3>
+        </div>
+        <div class="dream-card" onclick="celebrate('ستكونين أعظم مبرمجة! 💻✨')">
             <span class="icon">💻</span>
             <h3>احتراف البرمجة</h3>
         </div>
-
-        <div class="dream-card" onclick="celebrate('النجاح في الدراسة هو بوابتكِ للقمة! 📚🎓')">
+        <div class="dream-card" onclick="celebrate('التفوق هو بوابتكِ للقمة! 📚🎓')">
             <span class="icon">🎓</span>
             <h3>التفوق الدراسي</h3>
         </div>
-
         <div class="dream-card" onclick="celebrate('السفر ورؤية جمال العالم! ✈️🌍')">
             <span class="icon">✈️</span>
             <h3>السفر حول العالم</h3>
-        </div>
-
-        <div class="dream-card" onclick="celebrate('القوة والصحة هي سر السعادة! 💪🥗')')">
-            <span class="icon">💪</span>
-            <h3>حياة صحية</h3>
         </div>
     </div>
 
     <script>
         function celebrate(msg) {
             alert(msg);
-            for (let i = 0; i < 30; i++) {
-                createStar();
-            }
+            for (let i = 0; i < 50; i++) { createStar(); }
         }
 
         function createStar() {
             let star = document.createElement('div');
             star.className = 'star';
             star.innerHTML = '✨';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = '90vh';
+            // هذي الحسابات تخلي النجوم تطشر بكل الاتجاهات
+            const x = (Math.random() - 0.5) * 1000 + 'px';
+            const y = (Math.random() - 0.5) * 1000 + 'px';
+            star.style.setProperty('--x', x);
+            star.style.setProperty('--y', y);
+            star.style.left = '50vw';
+            star.style.top = '50vh';
             star.style.fontSize = Math.random() * 20 + 10 + 'px';
             document.body.appendChild(star);
             setTimeout(() => star.remove(), 2000);
